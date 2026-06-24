@@ -1,8 +1,8 @@
 # xbox-dongle-suspend-fix
-Fix for Xbox Wireless Dongle suspend issues on Linux/Bazzite.
+Fix for Xbox Wireless Dongle/Adapter standby/suspend issues on Linux/Bazzite.
 
 ## Problem Description
-In BazziteOS (and other Fedora Silverblue-based systems), especially on AMD hardware, you might encounter an issue where the Xbox Wireless Dongle (using the `xone` driver) fails to work correctly after waking up from sleep/standby (S3). The controller appears to connect to the dongle, but the operating system and Steam do not recognize it as an input device.
+In BazziteOS (and other Fedora Silverblue-based systems), especially on AMD hardware, you might encounter an issue where the Xbox Wireless Dongle/Adapter (using the `xone` driver) fails to work correctly after waking up from sleep/standby (S3). The controller appears to connect to the dongle, but the operating system and Steam do not recognize it as an input device.
 
 ## Solution
 The most reliable fix is to physically remove the dongle from the kernel before going to sleep, unload the drivers, and force a rescan of the USB port upon waking up before reloading the drivers. An additional `udevadm` command at the end eliminates the input delay in Steam after waking up.
