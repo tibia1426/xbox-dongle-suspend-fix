@@ -1,0 +1,15 @@
+[Unit]
+Description=Xbox Dongle Power Management Hook
+Before=sleep.target suspend.target hibernate.target
+StopWhenUnneeded=yes
+ 
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+# Executed BEFORE the system goes to sleep
+ExecStart=/usr/local/bin/reset-xbox-dongle.sh pre
+# Executed AFTER the system wakes up (because the target is stopped)
+ExecStop=/usr/local/bin/reset-xbox-dongle.sh post
+ 
+[Install]
+WantedBy=sleep.target suspend.target hibernate.target
