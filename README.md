@@ -56,7 +56,7 @@ sudo udevadm trigger
 ```
 ## Known Issues
 
-Despite this fix, occasional connection failures between the controller and the dongle may still occur after waking from standby. This is a hardware-level limitation caused by a timing bug in certain AMD USB controllers (`init radio failed: -110`), which prevents the dongle's radio firmware from initializing correctly — even after driver reloads or re-authorization.
+Despite this fix, sometimes connection failures between the controller and the dongle may still occur after waking from standby. This is probably a hardware-level limitation caused by a timing bug in certain AMD USB controllers (`init radio failed: -110`), which prevents the dongle's radio firmware from initializing correctly — even after driver reloads or re-authorization.
 
 If the controller does not reconnect after resume (indicated by a slow blinking light on the controller), the only reliable recovery is to **physically unplug and replug the dongle**. This issue occurs less frequently with this fix in place, but cannot be fully eliminated through software alone.
 
