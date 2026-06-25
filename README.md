@@ -34,7 +34,6 @@ Reload the systemd daemon and enable the service so it runs automatically:
 ```bash
 sudo systemctl daemon-reload
 sudo systemctl enable reset-xbox-dongle.service
-sudo systemctl start reset-xbox-dongle.service
 ```
 
 ## Usage
