@@ -36,6 +36,19 @@ sudo systemctl daemon-reload
 sudo systemctl enable reset-xbox-dongle.service
 ```
 
+### 4. Disable USB Autosuspend
+
+To prevent the kernel from suspending the dongle between standby cycles (which can cause internal firmware timeouts), USB autosuspend should be disabled for this device.
+
+Create or copy the file to `/etc/udev/rules.d/99-xbox-dongle-nosuspend.rules`.
+
+Apply the rule immediately without rebooting:
+
+```bash
+sudo udevadm control --reload-rules
+sudo udevadm trigger
+```
+
 ## Usage
 * The system now works fully automatically in the background, regardless of which USB port the dongle is connected to.
 * When the system goes to sleep, the dongle is deactivated.
