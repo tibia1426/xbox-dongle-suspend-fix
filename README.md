@@ -40,7 +40,13 @@ sudo systemctl enable reset-xbox-dongle.service
 
 To prevent the kernel from suspending the dongle between standby cycles (which can cause internal firmware timeouts), USB autosuspend should be disabled for this device.
 
-Create or copy the file to `/etc/udev/rules.d/99-xbox-dongle-nosuspend.rules`.
+Create the file `/etc/udev/rules.d/99-xbox-dongle-nosuspend.rules` — the file is included in this repository as `99-xbox-dongle-nosuspend.rules`.
+
+Copy it to the correct location:
+
+```bash
+sudo cp 99-xbox-dongle-nosuspend.rules /etc/udev/rules.d/
+```
 
 Apply the rule immediately without rebooting:
 
@@ -48,6 +54,22 @@ Apply the rule immediately without rebooting:
 sudo udevadm control --reload-rules
 sudo udevadm trigger
 ```
+## Known Issues
+
+Despite this fix, occasional connection failures between the controller and the dongle may still occur after waking from standby. This is a hardware-level limitation caused by a timing bug in certain AMD USB controllers (`init radio failed: -110`), which prevents the dongle's radio firmware from initializing correctly — even after driver reloads or re-authorization.
+
+If the controller does not reconnect after resume (indicated by a slow blinking light on the controller), the only reliable recovery is to **physically unplug and replug the dongle**. This issue occurs less frequently with this fix in place, but cannot be fully eliminated through software alone.
+
+## Reducing the frequency
+
+If you experience this issue regularly, try increasing the stabilization delay in `reset-xbox-dongle.sh`:
+
+```bash
+# Increase from 5 to 8 if "init radio failed: -110" persists after resume
+sleep 8
+```
+
+Additionally, make sure the dongle is connected to a USB port driven by the **AMD Matisse USB controller** (if available on your board), rather than a secondary controller such as ASMedia ASM1142, which is more prone to resume failures.
 
 ## Usage
 * The system now works fully automatically in the background, regardless of which USB port the dongle is connected to.
