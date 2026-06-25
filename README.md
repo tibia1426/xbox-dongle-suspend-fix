@@ -60,7 +60,7 @@ Despite this fix, occasional connection failures between the controller and the 
 
 If the controller does not reconnect after resume (indicated by a slow blinking light on the controller), the only reliable recovery is to **physically unplug and replug the dongle**. This issue occurs less frequently with this fix in place, but cannot be fully eliminated through software alone.
 
-## Reducing the frequency
+### Reducing the frequency
 
 If you experience this issue regularly, try increasing the stabilization delay in `reset-xbox-dongle.sh`:
 
